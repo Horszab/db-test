@@ -18,8 +18,7 @@ public class RadioCharts {
 
     public String getMostPlayedSong() {
         String result = "";
-        String SQL = "select sum(times_aired) as aired_sum, song from music_broadcast group by song order by aired_sum desc";
-        // String SQL = "select sum(points_earned) as cc, competitor_name from climbing_cup group by competitor_name order by cc desc";
+        String SQL = "select song, sum(times_aired) as sum, artist from music_broadcast group by song order by sum desc, artist asc";
 
         try {
 
@@ -27,8 +26,8 @@ public class RadioCharts {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            if(resultSet.next()) {
-                result = resultSet.getString(2);
+            if (resultSet.next()) {
+                result = resultSet.getString(1);
             }
 
         } catch (SQLException throwable) {
@@ -48,14 +47,13 @@ public class RadioCharts {
             PreparedStatement preparedStatement = connection.prepareStatement(SQL);
             ResultSet resultSet = preparedStatement.executeQuery();
 
-            if(resultSet.next()) {
+            if (resultSet.next()) {
                 result = resultSet.getString(1);
             }
 
         } catch (SQLException throwable) {
             throwable.printStackTrace();
         }
-
 
         return result;
     }
