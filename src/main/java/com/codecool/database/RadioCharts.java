@@ -39,7 +39,7 @@ public class RadioCharts {
 
     public String getMostActiveArtist() {
         String result = "";
-        String SQL = "select artist, count(*) as song_count from music_broadcast group by artist order by song_count desc";
+        String SQL = "select artist, count(distinct song) as song_count from music_broadcast group by artist order by song_count desc";
 
         try {
 
